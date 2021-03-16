@@ -1,0 +1,5 @@
+<ul class="list-group">
+    <li class="list-group-item fBold" *ngFor="let item of items">
+        <a [routerLink]="[ '/serie', item.id ]">{{ item.name }}</a>
+    </li>
+</ul>

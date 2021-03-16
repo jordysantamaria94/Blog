@@ -1,0 +1,18 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-8" *ngIf="post">
+            <h1 class="display-4 text-center fExtraBold mb-4">{{ post.titulo }}</h1>
+            <div class="text-center">
+                <img [src]="url+'/images/posts/'+post.id+'.jpg'" class="img-fluid" [alt]="post.titulo">
+            </div>
+            <p class="mt-3 fBold text-center">Escrita el: {{ date }}</p>
+            <div class="mt-3 mb-3" [innerHTML]="post.descripcion"></div>
+            <h2 class="display-6 mb-3 fBold">Tenemos más articulos</h2>
+            <div class="row mb-4">
+                <div class="col-md-4" *ngFor="let recommendation of recommendations">
+                    <app-card [item]="recommendation"></app-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

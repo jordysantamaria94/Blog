@@ -1,0 +1,15 @@
+<nav *ngIf="links.length > 3">
+    <ul class="pagination">
+        <div *ngFor="let link of links; let i = index;">
+            <li *ngIf="i == 0 && current > 1" class="page-item" (click)="paginate(current-1)">
+                <span class="page-link">Anterior</span>
+            </li>
+            <li *ngIf="i != 0 && i != (links.length - 1)" class="page-item" [ngClass]="{'active': link.active}" (click)="paginate(link.label)">
+                <span class="page-link">{{ link.label }}</span>
+            </li>
+            <li *ngIf="i == (links.length - 1) && current < (links.length - 2)" class="page-item" (click)="paginate(current+1)">
+                <span class="page-link">Siguiente</span>
+            </li>
+        </div>
+    </ul>
+</nav>

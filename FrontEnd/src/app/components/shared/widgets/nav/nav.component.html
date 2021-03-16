@@ -1,0 +1,43 @@
+<ul class="nav mb-4">
+    <li class="nav-item">
+        <a class="nav-link active fBold" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">
+            Cursos
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link fBold" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">
+            Gameplays
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link fBold" id="vlogs-tab" data-bs-toggle="tab" data-bs-target="#vlogs" type="button" role="tab" aria-controls="vlogs" aria-selected="false">
+            Vlogs
+        </a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="row">
+            <div *ngFor="let curso of cursos; let i = index;" [ngClass]="{'col-12': i == 0}" [ngClass]="{'col-md-4 mt-4': i != 0}">
+                <app-card-overlay *ngIf="i == 0" [item]="curso"></app-card-overlay>
+                <app-card *ngIf="i != 0" [item]="curso"></app-card>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="row">
+            <div *ngFor="let gameplay of gameplays; let i = index;" [ngClass]="{'col-12': i == 0}" [ngClass]="{'col-md-4 mt-4': i != 0}">
+                <app-card-overlay *ngIf="i == 0" [item]="gameplay"></app-card-overlay>
+                <app-card *ngIf="i != 0" [item]="gameplay"></app-card>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="vlogs" role="tabpanel" aria-labelledby="vlogs-tab">
+        <div class="row">
+            <div *ngFor="let vlog of vlogs; let i = index;" [ngClass]="{'col-12': i == 0}" [ngClass]="{'col-md-4 mt-4': i != 0}">
+                <app-card-overlay *ngIf="i == 0" [item]="vlog"></app-card-overlay>
+                <app-card *ngIf="i != 0" [item]="vlog"></app-card>
+            </div>
+        </div>
+    </div>
+</div>

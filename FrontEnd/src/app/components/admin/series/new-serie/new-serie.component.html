@@ -1,0 +1,16 @@
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-3">
+            <app-list-group-admin></app-list-group-admin>
+        </div>
+        <div class="col-9">
+            <div class="card p-4">
+                <h1 class="display-5 fExtraBold mb-4">Nueva Serie</h1>
+
+                <app-form-nueva-serie
+                    [nuevaSerieModel]="nuevaSerieModel"
+                    [submit]="registrar"></app-form-nueva-serie>
+            </div>
+        </div>
+    </div>
+</div>

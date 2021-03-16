@@ -1,0 +1,41 @@
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-3">
+            <app-list-group-admin></app-list-group-admin>
+        </div>
+        <div class="col-9">
+            <div class="card p-4">
+                <h1 class="display-5 fExtraBold">Series</h1>
+                <div class="d-flex flex-row-reverse">
+                    <button class="btn btn-primary btn-sm fBold" [routerLink]="[ '/admin/serie/new' ]">Nueva Serie</button>
+                </div>
+                <table class="table mb-3">
+                    <thead>
+                        <tr>
+                            <th class="fExtraBold">Serie</th>
+                            <th class="fExtraBold">Categoria</th>
+                            <th class="fExtraBold">Fecha</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let serie of series; let i = index">
+                            <td>{{ serie.subcategoria }}</td>
+                            <td>{{ formatDate(serie.created_at) }}</td>
+                            <td>{{ serie.categoria }}</td>
+                            <td>
+                                <button type="button" class="btn btn-primary btn-sm" [routerLink]="[ '/admin/serie/update', serie.id ]">
+                                    <i class="fas fa-pen"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <app-pagination
+                    [current]="current"
+                    [links]="links"
+                    [paginate]="paginate"></app-pagination>
+            </div>
+        </div>
+    </div>
+</div>

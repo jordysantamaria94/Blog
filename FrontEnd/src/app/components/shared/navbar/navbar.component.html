@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg navbar-light bgPrimary">
+    <div class="container">
+        <a class="navbar-brand" [routerLink]="[ '/']">
+            <img src="https://www.jordysantamaria.com/img/logo/JS.png" class="img-fluid logo-nav" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link fBold" [routerLink]="[ '/cursos']" routerLinkActive="active">Cursos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fBold" [routerLink]="[ '/gameplay']" routerLinkActive="active">Gameplay</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fBold" [routerLink]="[ '/blog']" routerLinkActive="active">Vlogs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link fBold" [routerLink]="[ '/contactame']" routerLinkActive="active">Sobre mí</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                
+                <app-search></app-search>
+
+                <li class="nav-item dropdown mt-1 ml-4">
+                    <a class="nav-link" [routerLink]="[ '/login' ]">Ingresar</a>
+                    <!--
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            User
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Mi Perfil
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Cerrar Sesión
+                                </a>
+                            </li>
+                        </ul>
+                    -->
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

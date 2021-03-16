@@ -1,0 +1,24 @@
+<div class="container mb-4">
+    <div class="row mt-4">
+        <div class="col-12">
+            <h1 class="display-2 fExtraBold">Cursos</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <app-carousel [news]="news"></app-carousel>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-9">
+            <div class="row">
+                <div class="col-4" *ngFor="let post of posts">
+                    <app-card *ngIf="i > 2" [item]="post"></app-card>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <app-list-group [items]="series"></app-list-group>
+        </div>
+    </div>
+</div>

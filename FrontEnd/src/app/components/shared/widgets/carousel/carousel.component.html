@@ -1,0 +1,24 @@
+<div id="carouselExampleDark" class="carousel slide mt-4" data-bs-ride="carousel">
+    <ol class="carousel-indicators">
+        <li *ngFor="let slide of news; let i = index;" data-bs-target="#carouselExampleDark" [data-bs-slide-to]="i" [ngClass]="{'active': i == 0}"></li>
+    </ol>
+    <div class="carousel-inner">
+        <div *ngFor="let new of news; let i = index;" [ngClass]="{'active': i == 0}" class="carousel-item" data-bs-interval="2000">
+            <a [routerLink]="[ '/post', new.id, new.url ]">
+                <img [src]="url+'/images/posts/'+new.id+'.jpg'" class="d-block w-100" [alt]="new.titulo">
+                <div class="carousel-caption d-none d-md-block">
+                    <h2 class="title fExtraBold">{{ new.titulo }}</h2>
+                    <p class="description fBold">{{ new.breve_descripcion }}</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </a>
+</div>

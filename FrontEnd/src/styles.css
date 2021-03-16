@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700;900&display=swap');
+
+.bgPrimary {
+    background-color: #051C2F !important;
+    color: white !important;
+}
+
+.bgSecondary {
+    background-color: #10344B !important;
+    color: white !important;
+}
+
+.bgAlternative {
+    background-color: #1E5676 !important;
+    columns: white !important;
+}
+
+body {
+    background-color: #f1f1f1 !important;
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-weight: 400 !important;
+}
+
+.fLight {
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-weight: 300 !important;
+}
+
+.fBold {
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-weight: 700 !important;
+}
+
+.fExtraBold {
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-weight: 900 !important;
+}
+
+a {
+    color: #1E5676 !important;
+}
+
+.ck.ck-editor__main>.ck-editor__editable {
+    height: 300px !important;
+}

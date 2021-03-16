@@ -1,0 +1,10 @@
+<div class="card bg-dark text-white">
+  <a [routerLink]="[ '/post', item.id, item.url ]">
+    <img [src]="url+'/images/posts/'+item.id+'.jpg'" class="card-img" [alt]="item.titulo">
+    <div class="card-img-overlay">
+      <h2 class="card-title fExtraBold">{{ item.titulo }}</h2>
+      <p class="card-text fBold">{{ item.breve_descripcion }}</p>
+      <p class="card-text">{{ item.created_at }}</p>
+    </div>
+  </a>
+</div>
