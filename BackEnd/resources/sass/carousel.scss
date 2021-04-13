@@ -1,0 +1,12 @@
+.title {
+    font-size: 45px !important;
+}
+
+.description {
+    font-size: 20px !important;
+}
+
+.carousel-item img, .carousel-item, .carousel-inner {
+    box-shadow: $shadow-carousel;
+    border-radius: 30px !important;
+}

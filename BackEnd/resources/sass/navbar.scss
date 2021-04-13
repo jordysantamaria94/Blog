@@ -1,0 +1,25 @@
+.navbar {
+    height: 100px !important;
+}
+
+.logo-nav {
+    width: 50px !important;
+}
+
+.nav-link {
+    font-size: 15px !important;
+    color: $color-navlink !important;
+}
+
+.nav-link.active {
+    color: white !important;
+}
+
+.dropdown-menu {
+    border: 0px solid !important;
+    box-shadow: $box-shadow;
+}
+
+.btn-primary {
+    color: white !important;
+}

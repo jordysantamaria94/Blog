@@ -19,26 +19,25 @@ export class PostComponent implements OnInit {
   recommendations: any;
 
   constructor(private blogService: BlogService, private route: ActivatedRoute, private metas: Metas, private router: Router, private title: Title) {
-
-    this.route.params.subscribe(param => {
-      this.getPostDetail(param.id);
-    });
   }
 
   ngOnInit(): void {
+    this.route.params.subscribe(param => {
+      this.getPostDetail(param.id);
+    });
   }
 
   ngOnChange(): void {
     console.log("Hello");
   }
 
-  getPostDetail(id: string) {
+  async getPostDetail(id: string) {
 
     const data = {
       id: id
     };
 
-    this.blogService.getPostDetail(data)
+    await this.blogService.getPostDetail(data)
       .subscribe(post => {
         console.log(post);
         this.url = environment.urlRaw;
@@ -49,7 +48,7 @@ export class PostComponent implements OnInit {
       });
   }
 
-  setMetas() {
+  async setMetas() {
 
     const metasCustom = {
       title: this.post.titulo,
@@ -64,7 +63,7 @@ export class PostComponent implements OnInit {
 
     this.title.setTitle(this.post.titulo);
 
-    this.metas.updateMetaTags(metasCustom);
+    await this.metas.updateMetaTags(metasCustom);
 
   }
 

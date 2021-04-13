@@ -1,0 +1,15 @@
+.panel-info {
+    background-color: $gray;
+}
+
+.accordion {
+    box-shadow: $box-shadow;
+}
+
+.accordion-button, .accordion-collapse {
+    border: 0px solid !important;
+}
+
+.accordion-button, .accordion-body {
+    background-color: white !important;
+}

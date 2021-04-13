@@ -25,7 +25,7 @@ import { NewSerieComponent } from './components/admin/series/new-serie/new-serie
 import { UpdateSerieComponent } from './components/admin/series/update-serie/update-serie.component';
 
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'blog', component: BlogComponent },
   { path: 'cursos', component: CursosComponent },

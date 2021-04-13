@@ -32,7 +32,7 @@ Route::get('last-news', [MainController::class, 'lastNews']);
 Route::post('post', [PostController::class, 'getPost']);
 Route::post('categoria', [CategoriaController::class, 'lastNews']);
 
-Route::middleware('auth:api')->group( function () {
+Route::middleware('auth:sanctum')->group( function () {
     Route::get('logout', [AuthController::class, 'logout']);
     Route::get('user', [AuthController::class, 'user']);
 

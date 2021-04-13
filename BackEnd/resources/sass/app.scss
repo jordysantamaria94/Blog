@@ -1,0 +1,24 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Styles Site
+@import 'nav';
+@import 'card';
+@import 'navbar';
+@import 'general';
+@import 'carousel';
+@import 'list-group';
+@import 'card-overlay';
+@import 'footer';
+@import 'about-me';
+@import 'post';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+//fontawesome
+//@import "~font-awesome/scss/font-awesome.scss";
+@import '~@fortawesome/fontawesome-free/css/all.css';

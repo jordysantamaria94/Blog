@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { CKEditorModule } from 'ckeditor4-angular';
 
+import { RouterModule } from '@angular/router';
+import { routes } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { MainComponent } from './components/main/main.component';
 import { ContactoComponent } from './components/contacto/contacto.component';
@@ -84,7 +87,8 @@ import { FormNuevaSerieComponent } from './components/shared/forms/form-nueva-se
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    RouterModule.forRoot(routes, { useHash: true }),
   ],
   providers: [],
   bootstrap: [AppComponent]
