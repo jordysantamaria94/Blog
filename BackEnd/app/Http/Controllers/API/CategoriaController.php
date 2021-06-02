@@ -14,7 +14,14 @@ class CategoriaController extends Controller
     {
         return response()->json([
             'posts' => $this->getLastNews($request->id),
-            'subcategorias' => $this->getSubcategorias($request->id)
+            'subcategorias' => $this->getSubcategorias($request->id),
+            'metas' => [
+                'title' => '',
+                'description' => '',
+                'url' => '',
+                'image' => '',
+                'keywords' => ''
+            ]
         ], 201);
     }
 

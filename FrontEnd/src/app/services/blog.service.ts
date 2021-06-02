@@ -4,6 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 
+import { Login } from '../models/login';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -57,8 +59,12 @@ export class BlogService {
     return this.http.delete(url, { headers });
   }
 
-  login(data: any) {
-    return this.postQuery('login', data);
+  login(formData: Login) {
+    return this.postQuery('login', formData);
+  }
+
+  verifyToken() {
+    return this.getQuery('user');
   }
 
   getLastNews() {
@@ -165,6 +171,14 @@ export class BlogService {
 
   updateSerie(id: number, data: any) {
     return this.postQuery(`admin/series/${id}?_method=PUT`, data);
+  }
+
+  /**
+   * Logout
+   */
+
+  logout() {
+    return this.postQuery('logout');
   }
 
 }

@@ -22,7 +22,14 @@ class AdminCategoriaController extends Controller
                         ->paginate(10);
 
         return response()->json([
-            'categorias' => $categorias
+            'categorias' => $categorias,
+            'metas' => [
+                'title' => '',
+                'description' => '',
+                'url' => '',
+                'image' => '',
+                'keywords' => ''
+            ]
         ]);
     }
 

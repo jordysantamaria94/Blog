@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NuevaCategoriaModel } from 'src/app/models/admin/categorias/nueva-categoria.model';
@@ -11,47 +12,50 @@ import { BlogService } from 'src/app/services/blog.service';
 })
 export class UpdateCategoriaComponent implements OnInit {
 
-  nuevaCategoriaModel: NuevaCategoriaModel;
-
   id: number;
+  image: string;
+  formUpdateCategoria: NuevaCategoriaModel;
 
   constructor(private route: Router, private router: ActivatedRoute, private blogService: BlogService, private toastr: ToastrService) {
     this.id = +this.router.snapshot.paramMap.get("id");
-    this.nuevaCategoriaModel = new NuevaCategoriaModel();
   }
 
   ngOnInit(): void {
     this.getInfoCategoria();
   }
 
+  updateImage = (image: string): void => {
+    this.image = image;
+  }
+
   async getInfoCategoria() {
     await this.blogService.getInfoCategoria(this.id)
       .subscribe(categoria => {
-        this.setDataCategoria(categoria);
+        this.formUpdateCategoria = new NuevaCategoriaModel(categoria.categoria, this.image, categoria.descripcion, JSON.parse(categoria.etiquetas));
+      }, error => {
+        console.log(error);
+        localStorage.clear();
+        this.route.navigate(["/"]);
       });
   }
 
-  setDataCategoria(categoria: any) {
-    this.nuevaCategoriaModel.titulo = categoria.categoria;
-    this.nuevaCategoriaModel.descripcion = categoria.descripcion;
-    this.nuevaCategoriaModel.etiquetas = JSON.parse(categoria.etiquetas);
-  }
+  actualizar = (sendForm: NgForm): void => {
 
-  actualizar = () => {
+    const formCategoria = new NuevaCategoriaModel(sendForm.value.titulo, this.image, sendForm.value.descripcion, sendForm.value.etiquetas);
 
-    if (this.nuevaCategoriaModel.titulo != "" && 
-      this.nuevaCategoriaModel.descripcion != "" && 
-      this.nuevaCategoriaModel.etiquetas != "") {
+    if (formCategoria.titulo != "" && 
+      formCategoria.descripcion != "" && 
+      formCategoria.etiquetas != "") {
 
       let formData = new FormData();
 
       formData.append('id', localStorage.getItem("id"));
-      formData.append('titulo', this.nuevaCategoriaModel.titulo);
-      formData.append('descripcion', this.nuevaCategoriaModel.descripcion);
-      formData.append('etiquetas', this.nuevaCategoriaModel.etiquetas);
+      formData.append('titulo', formCategoria.titulo);
+      formData.append('descripcion', formCategoria.descripcion);
+      formData.append('etiquetas', formCategoria.etiquetas);
 
-      if (this.nuevaCategoriaModel.image) {
-        formData.append('File', this.nuevaCategoriaModel.image, this.nuevaCategoriaModel.image.name);
+      if (formCategoria.image) {
+        formData.append('File', formCategoria.image, formCategoria.image.name);
       }
 
       this.blogService.updateCategoria(this.id, formData)
@@ -62,6 +66,10 @@ export class UpdateCategoriaComponent implements OnInit {
           } else {
             this.toastr.error("Hubo un error al tratar de actualizar la categoria, intentalo nuevamente", "Error!");
           }
+        }, error => {
+          console.log(error);
+          localStorage.clear();
+          this.route.navigate(["/"]);
         });
 
     } else {

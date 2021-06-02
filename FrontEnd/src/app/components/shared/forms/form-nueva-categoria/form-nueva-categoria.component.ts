@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FormNuevaCategoriaComponent implements OnInit {
 
-  @Input() nuevaCategoriaModel: any;
+  @Input() image: any;
   @Input() submit: any;
 
   imageUrl: any;
@@ -24,7 +24,7 @@ export class FormNuevaCategoriaComponent implements OnInit {
     } else {
       var reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
-      this.nuevaCategoriaModel.image = event.target.files[0];
+      this.image(event.target.files[0]);
       
       reader.onload = (_event) => {
         this.imageUrl = reader.result; 

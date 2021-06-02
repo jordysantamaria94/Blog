@@ -21,7 +21,7 @@ class PostController extends Controller
                 'title' => $detail->titulo.' - Jordy Santamaria',
                 'description' => $detail->breve_descripcion,
                 'url' => 'https://www.jordysantamaria.com/post/'.$detail->id.'/'.$detail->url,
-                'image' => 'https://www.jordysantamaria.com/images/posts/'.$detail->id.'.jpg',
+                'image' => 'https://api.jordysantamaria.com/images/posts/'.$detail->id.'.jpg',
                 'keywords' => implode(", ", json_decode($detail->etiquetas))
             ]
         ]);

@@ -1,18 +1,20 @@
 <div class="container mt-5 mb-5">
     <div class="row justify-content-center">
-        <div class="col-5">
-            <h1 class="display-4 fExtraBold">Login</h1>
+        <div class="card col-5">
+            <h1 class="display-4 fExtraBold">Ingresar</h1>
 
-            <div class="mb-3">
-                <label for="emailInput" class="form-label">Correo</label>
-                <input type="email" class="form-control" id="emailInput" [(ngModel)]="email" placeholder="name@example.com">
-            </div>
-            <div class="mb-3">
-                <label for="passwordInput" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="passwordInput" [(ngModel)]="password">
-            </div>
-            
-            <button type="button" class="btn btn-primary" (click)="ingresar()">Ingresar</button>
+            <form (ngSubmit)="ingresar(sendForm)" #sendForm="ngForm">
+                <div class="mb-3">
+                    <label for="emailInput" class="form-label">Correo</label>
+                    <input type="email" class="form-control" id="emailInput" name="email" placeholder="name@example.com" ngModel>
+                </div>
+                <div class="mb-3">
+                    <label for="passwordInput" class="form-label">Contraseña</label>
+                    <input type="password" class="form-control" id="passwordInput" name="password" required ngModel>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" [disabled]="btnLoginDisabled">{{ btnLoginText }}</button>
+            </form>
         </div>
     </div>
 </div>

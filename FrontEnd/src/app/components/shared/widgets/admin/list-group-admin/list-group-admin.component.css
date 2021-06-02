@@ -11,3 +11,8 @@
 a {
     text-decoration: none;
 }
+
+.font-red {
+    color: red !important;
+    cursor: pointer;
+}

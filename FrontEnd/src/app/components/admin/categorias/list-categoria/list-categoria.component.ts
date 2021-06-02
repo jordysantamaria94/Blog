@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from 'src/app/services/blog.service';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+import { CategoriasTable } from 'src/app/models/admin/categorias/list-categorias.model';
 
 @Component({
   selector: 'app-list-categoria',
@@ -9,28 +11,41 @@ import * as moment from 'moment';
 })
 export class ListCategoriaComponent implements OnInit {
 
-  categorias: any = [];
+  categorias: CategoriasTable[] = [] || undefined;
 
-  current: number = 1;
-  links: any = [];
+  currentPagination: number = 1;
+  linksPagination: any = [];
 
-  constructor(private blogService: BlogService) { }
+  constructor(private blogService: BlogService, private route: Router) { }
 
   ngOnInit(): void {
     this.getAllCategorias();
   }
 
   async getAllCategorias() {
-    await this.blogService.getAllCategorias(this.current)
-      .subscribe(categorias => {
-        this.categorias = categorias['data'];
-        this.current = categorias['current_page'];
-        this.links = categorias['links'];
-      });
+    
+    try {
+
+      await this.blogService.getAllCategorias(this.currentPagination)
+        .subscribe(categorias => {
+          this.categorias = categorias['data'];
+          this.currentPagination = categorias['current_page'];
+          this.linksPagination = categorias['links'];
+        }, error => {
+          console.log(error);
+          localStorage.clear();
+          this.route.navigate(['/']);
+        });
+      
+    } catch (error) {
+      console.log(error);
+      localStorage.clear();
+      this.route.navigate(['/']);
+    }
   }
 
-  paginate = (page: number) => {
-    this.current = page;
+  paginate = (page: number): void => {
+    this.currentPagination = page;
     this.getAllCategorias();
   }
 

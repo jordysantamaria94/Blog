@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NuevoPostModel } from 'src/app/models/admin/posts/nuevo-post.model';
@@ -11,13 +12,12 @@ import { BlogService } from 'src/app/services/blog.service';
 })
 export class UpdatePostComponent implements OnInit {
 
-  nuevoPostModel: NuevoPostModel;
-
   id: number;
+  postForm: NuevoPostModel;
+  image: string;
 
   constructor(private route: Router, private router: ActivatedRoute, private blogService: BlogService, private toastr: ToastrService) {
     this.id = +this.router.snapshot.paramMap.get("id");
-    this.nuevoPostModel = new NuevoPostModel();
   }
 
   ngOnInit(): void {
@@ -25,61 +25,83 @@ export class UpdatePostComponent implements OnInit {
   }
 
   async getInfoPost() {
-    await this.blogService.getInfoPost(this.id)
-      .subscribe(post => {
-        this.setDataPost(post);    
-      });
-  }
+    
+    try {
 
-  setDataPost(post: any) {
-    this.nuevoPostModel.categoria = post.id_categoria;
-    this.nuevoPostModel.serie = post.id_subcategoria;
-    this.nuevoPostModel.titulo = post.titulo;
-    this.nuevoPostModel.url = post.url;
-    this.nuevoPostModel.descripcionPortada = post.descripcion_foto;
-    this.nuevoPostModel.descripcionCorta = post.breve_descripcion;
-    this.nuevoPostModel.content = post.descripcion;
-    this.nuevoPostModel.etiquetas = JSON.parse(post.etiquetas);
-  }
-
-  actualizar = () => {
-
-    if (this.nuevoPostModel.categoria != 0 && 
-      this.nuevoPostModel.serie != 0 && 
-      this.nuevoPostModel.titulo != "" && 
-      this.nuevoPostModel.url != "" && 
-      this.nuevoPostModel.descripcionPortada != "" && 
-      this.nuevoPostModel.descripcionCorta != "" && 
-      this.nuevoPostModel.content != "" && 
-      this.nuevoPostModel.etiquetas != "") {
-
-      let formData = new FormData();
-
-      formData.append('id', localStorage.getItem("id"));
-      formData.append('serie', this.nuevoPostModel.serie.toString());
-      formData.append('titulo', this.nuevoPostModel.titulo);
-      formData.append('url', this.nuevoPostModel.url);
-      formData.append('descripcionPortada', this.nuevoPostModel.descripcionPortada);
-      formData.append('descripcionCorta', this.nuevoPostModel.descripcionCorta);
-      formData.append('content', this.nuevoPostModel.content);
-      formData.append('etiquetas', this.nuevoPostModel.etiquetas);
-
-      if (this.nuevoPostModel.image) {
-        formData.append('File', this.nuevoPostModel.image, this.nuevoPostModel.image.name);
-      }
-
-      this.blogService.updatePost(this.id, formData)
-        .subscribe(response => {
-          if (response) {
-            this.toastr.success("El post se ha actualizado exitosamente", "Exito!");
-            this.route.navigate(["/admin/posts/list"]);
-          } else {
-            this.toastr.error("Hubo un error al tratar de actualizar el post, intentalo nuevamente", "Error!");
-          }
+      await this.blogService.getInfoPost(this.id)
+        .subscribe(post => {
+          this.setDataPost(post);    
+        }, error => {
+          localStorage.clear();
+          this.route.navigate(['/']);
         });
+      
+    } catch (error) {
+      console.log(error);
+      localStorage.clear();
+      this.route.navigate(['/']);
+    }
 
-    } else {
-      this.toastr.warning("Es necesario llenar todos los campos", "Campos invalidos");
+  }
+
+  setDataPost(post: any): void {
+    this.postForm = new NuevoPostModel(post.id_categoria, post.id_subcategoria, post.titulo, post.url, "", post.descripcion_foto, post.breve_descripcion, post.descripcion, JSON.parse(post.etiquetas));
+  }
+
+  updateImage = (image: string): void => {
+    this.image = image;
+  }
+
+  actualizar = (sendForm: NgForm): void => {
+
+    const postFormUpdate = new NuevoPostModel(sendForm.value.categoria, sendForm.value.serie, sendForm.value.titulo, sendForm.value.url, this.image, sendForm.value.descripcionPortada, sendForm.value.descripcionCorta, sendForm.value.content, sendForm.value.etiquetas);
+
+    try {
+
+      if (postFormUpdate.categoria != 0 && 
+          postFormUpdate.serie != 0 && 
+          postFormUpdate.titulo != "" && 
+          postFormUpdate.url != "" && 
+          postFormUpdate.descripcionPortada != "" && 
+          postFormUpdate.descripcionCorta != "" && 
+          postFormUpdate.content != "" && 
+          postFormUpdate.etiquetas != "") {
+    
+          let formData = new FormData();
+    
+          formData.append('id', localStorage.getItem("id"));
+          formData.append('serie', postFormUpdate.serie.toString());
+          formData.append('titulo', postFormUpdate.titulo);
+          formData.append('url', postFormUpdate.url);
+          formData.append('descripcionPortada', postFormUpdate.descripcionPortada);
+          formData.append('descripcionCorta', postFormUpdate.descripcionCorta);
+          formData.append('content', postFormUpdate.content);
+          formData.append('etiquetas', postFormUpdate.etiquetas);
+    
+          if (postFormUpdate.image) {
+            formData.append('File', postFormUpdate.image, postFormUpdate.image.name);
+          }
+    
+          this.blogService.updatePost(this.id, formData)
+            .subscribe(response => {
+              if (response) {
+                this.toastr.success("El post se ha actualizado exitosamente", "Exito!");
+                this.route.navigate(["/admin/posts/list"]);
+              } else {
+                this.toastr.error("Hubo un error al tratar de actualizar el post, intentalo nuevamente", "Error!");
+              }
+            }, error => {
+              console.log(error);
+              localStorage.clear();
+              this.route.navigate(["/"]);
+            });
+    
+        } else {
+          this.toastr.warning("Es necesario llenar todos los campos", "Campos invalidos");
+        }
+      
+    } catch (error) {
+      console.log(error);
     }
   }
 

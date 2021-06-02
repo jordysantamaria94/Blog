@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BlogService } from 'src/app/services/blog.service';
 import * as moment from 'moment';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { PostsTable } from 'src/app/models/admin/posts/list-posts.model';
 
 @Component({
   selector: 'app-list-post',
@@ -10,28 +12,39 @@ import Swal from 'sweetalert2';
 })
 export class ListPostComponent implements OnInit {
 
-  posts: any = [];
+  posts: PostsTable[] = [] || undefined;
+  currentPagination: number = 1;
+  linksPagination: any = [] || undefined;
 
-  current: number = 1;
-  links: any = [];
-
-  constructor(private blogService: BlogService) { }
+  constructor(private blogService: BlogService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllPosts();
   }
 
   async getAllPosts() {
-    await this.blogService.getAllPosts(this.current)
-      .subscribe(posts => {
-        this.posts = posts['data'];
-        this.current = posts['current_page'];
-        this.links = posts['links'];
-      });
+    
+    try {
+      
+      await this.blogService.getAllPosts(this.currentPagination)
+        .subscribe(posts => {
+          this.posts = posts['data'];
+          this.currentPagination = posts['current_page'];
+          this.linksPagination = posts['links'];
+        }, error => {
+          localStorage.clear();
+          this.router.navigate(['/']);
+        });
+
+    } catch (error) {
+      localStorage.clear();
+      this.router.navigate(['/']);
+    }
+
   }
 
   paginate = (page: number) => {
-    this.current = page;
+    this.currentPagination = page;
     this.getAllPosts();
   }
 
@@ -66,7 +79,6 @@ export class ListPostComponent implements OnInit {
     
     this.blogService.deletePost(id)
       .subscribe(response => {
-        console.log(response);
         this.posts.splice(index, 1);
       });
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NuevaSerieModel } from 'src/app/models/admin/series/nueva-serie.model';
@@ -11,13 +12,12 @@ import { BlogService } from 'src/app/services/blog.service';
 })
 export class UpdateSerieComponent implements OnInit {
 
-  nuevaSerieModel: NuevaSerieModel;
-
   id: number;
+  image: string;
+  formUpdateSerie: NuevaSerieModel;
 
   constructor(private blogService: BlogService, private toastr: ToastrService, private route: Router, private router: ActivatedRoute) { 
     this.id = +this.router.snapshot.paramMap.get("id");
-    this.nuevaSerieModel = new NuevaSerieModel();
   }
 
   ngOnInit(): void {
@@ -27,33 +27,37 @@ export class UpdateSerieComponent implements OnInit {
   async getInfoSerie() {
     await this.blogService.getInfoSerie(this.id)
       .subscribe(serie => {
-        this.setDataSerie(serie);
+        this.formUpdateSerie = new NuevaSerieModel(serie.id_categoria, serie.subcategoria, this.image, serie.descripcion, JSON.parse(serie.etiquetas));
+      }, error => {
+        console.log(error);
+        localStorage.clear();
+        this.route.navigate(["/"]);
       });
   }
 
-  setDataSerie(serie: any) {
-    this.nuevaSerieModel.categoria = serie.id_categoria;
-    this.nuevaSerieModel.titulo = serie.subcategoria;
-    this.nuevaSerieModel.descripcion = serie.descripcion;
-    this.nuevaSerieModel.etiquetas = JSON.parse(serie.etiquetas);
+  updateImage = (image: string): void => {
+    this.image = image;
   }
 
-  actualizar = () => {
-    if (this.nuevaSerieModel.categoria != 0 &&
-      this.nuevaSerieModel.titulo != "" && 
-      this.nuevaSerieModel.descripcion != "" && 
-      this.nuevaSerieModel.etiquetas != "") {
+  actualizar = (sendForm: NgForm): void => {
+
+    const serieForm = new NuevaSerieModel(sendForm.value.categoria, sendForm.value.titulo, this.image, sendForm.value.descripcion, sendForm.value.etiquetas);
+
+    if (serieForm.categoria != 0 &&
+      serieForm.titulo != "" && 
+      serieForm.descripcion != "" && 
+      serieForm.etiquetas != "") {
 
       let formData = new FormData();
       
       formData.append('id', localStorage.getItem("id"));
-      formData.append('categoria', this.nuevaSerieModel.categoria.toString());
-      formData.append('titulo', this.nuevaSerieModel.titulo);
-      formData.append('descripcion', this.nuevaSerieModel.descripcion);
-      formData.append('etiquetas', this.nuevaSerieModel.etiquetas);
+      formData.append('categoria', serieForm.categoria.toString());
+      formData.append('titulo', serieForm.titulo);
+      formData.append('descripcion', serieForm.descripcion);
+      formData.append('etiquetas', serieForm.etiquetas);
 
-      if (this.nuevaSerieModel.image) {
-        formData.append('File', this.nuevaSerieModel.image, this.nuevaSerieModel.image.name);
+      if (serieForm.image) {
+        formData.append('File', serieForm.image, serieForm.image.name);
       }
 
       this.blogService.updateSerie(this.id, formData)

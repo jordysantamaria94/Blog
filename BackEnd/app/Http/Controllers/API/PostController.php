@@ -14,7 +14,14 @@ class PostController extends Controller
     {
         return response()->json([
             'detail' => $this->getPostDetail($request->id),
-            'recommendations' => $this->getRecomendaciones($request->id, 3)
+            'recommendations' => $this->getRecomendaciones($request->id, 3),
+            'metas' => [
+                'title' => '',
+                'description' => '',
+                'url' => '',
+                'image' => '',
+                'keywords' => ''
+            ]
         ]);
     }
 

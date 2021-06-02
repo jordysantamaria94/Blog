@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NuevaSerieModel } from 'src/app/models/admin/series/nueva-serie.model';
@@ -11,32 +12,35 @@ import { BlogService } from 'src/app/services/blog.service';
 })
 export class NewSerieComponent implements OnInit {
 
-  nuevaSerieModel: NuevaSerieModel;
+  image: string;
 
-  constructor(private blogService: BlogService, private toastr: ToastrService, private route: Router) { 
-    this.nuevaSerieModel = new NuevaSerieModel();
-  }
+  constructor(private blogService: BlogService, private toastr: ToastrService, private route: Router) {}
 
   ngOnInit(): void {
   }
 
-  registrar = () => {
-    if (this.nuevaSerieModel.categoria != 0 &&
-      this.nuevaSerieModel.titulo != "" && 
-      this.nuevaSerieModel.image && 
-      this.nuevaSerieModel.descripcion != "" && 
-      this.nuevaSerieModel.etiquetas != "") {
+  updateImage = (image: string): void => {
+    this.image = image;
+  }
+
+  registrar = (sendForm: NgForm): void => {
+
+    const serieForm = new NuevaSerieModel(sendForm.value.categoria, sendForm.value.titulo, this.image, sendForm.value.descripcion, sendForm.value.etiquetas);
+
+    if (serieForm.categoria != 0 &&
+      serieForm.titulo != "" && 
+      serieForm.image && 
+      serieForm.descripcion != "" && 
+      serieForm.etiquetas != "") {
 
       let formData = new FormData();
       
       formData.append('id', localStorage.getItem("id"));
-      formData.append('categoria', this.nuevaSerieModel.categoria.toString());
-      formData.append('titulo', this.nuevaSerieModel.titulo);
-      formData.append('File', this.nuevaSerieModel.image, this.nuevaSerieModel.image.name);
-      formData.append('descripcion', this.nuevaSerieModel.descripcion);
-      formData.append('etiquetas', this.nuevaSerieModel.etiquetas);
-
-      console.log(this.nuevaSerieModel);
+      formData.append('categoria', serieForm.categoria.toString());
+      formData.append('titulo', serieForm.titulo);
+      formData.append('File', serieForm.image, serieForm.image.name);
+      formData.append('descripcion', serieForm.descripcion);
+      formData.append('etiquetas', serieForm.etiquetas);
 
       this.blogService.setNewSerie(formData)
         .subscribe(response => {

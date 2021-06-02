@@ -25,7 +25,14 @@ class AdminSubcategoriaController extends Controller
             ->paginate(10);
 
         return response()->json([
-            'series' => $subcategorias
+            'series' => $subcategorias,
+            'metas' => [
+                'title' => '',
+                'description' => '',
+                'url' => '',
+                'image' => '',
+                'keywords' => ''
+            ]
         ]);
     }
 

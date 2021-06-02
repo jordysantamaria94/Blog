@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NuevoPostModel } from 'src/app/models/admin/posts/nuevo-post.model';
@@ -11,51 +12,65 @@ import { BlogService } from 'src/app/services/blog.service';
 })
 export class NewPostComponent implements OnInit {
 
-  nuevoPostModel: NuevoPostModel;
+  image: string;
 
-  constructor(private blogService: BlogService, private toastr: ToastrService, private route: Router) {
-    this.nuevoPostModel = new NuevoPostModel();
-  }
+  constructor(private blogService: BlogService, private toastr: ToastrService, private route: Router) {}
 
   ngOnInit(): void {
   }
 
-  registrar = () => {
+  updateImage = (image: string): void => {
+    this.image = image;
+  }
 
-    if (this.nuevoPostModel.categoria != 0 && 
-        this.nuevoPostModel.serie != 0 && 
-        this.nuevoPostModel.titulo != "" && 
-        this.nuevoPostModel.url != "" && 
-        this.nuevoPostModel.image && 
-        this.nuevoPostModel.descripcionPortada != "" && 
-        this.nuevoPostModel.descripcionCorta != "" && 
-        this.nuevoPostModel.content != "" && 
-        this.nuevoPostModel.etiquetas != "") {
+  registrar = (sendForm: NgForm): void => {
 
-      let formData = new FormData();
+    const postForm = new NuevoPostModel(sendForm.value.categoria, sendForm.value.serie, sendForm.value.titulo, sendForm.value.url, this.image, sendForm.value.descripcionPortada, sendForm.value.descripcionCorta, sendForm.value.content, sendForm.value.etiquetas);
+
+    try {
       
-      formData.append('id', localStorage.getItem("id"));
-      formData.append('serie', this.nuevoPostModel.serie.toString());
-      formData.append('titulo', this.nuevoPostModel.titulo);
-      formData.append('url', this.nuevoPostModel.url);
-      formData.append('File', this.nuevoPostModel.image, this.nuevoPostModel.image.name);
-      formData.append('descripcionPortada', this.nuevoPostModel.descripcionPortada);
-      formData.append('descripcionCorta', this.nuevoPostModel.descripcionCorta);
-      formData.append('content', this.nuevoPostModel.content);
-      formData.append('etiquetas', this.nuevoPostModel.etiquetas);
+      if (postForm.categoria != 0 && 
+          postForm.serie != 0 && 
+          postForm.titulo != "" && 
+          postForm.url != "" && 
+          postForm.image && 
+          postForm.descripcionPortada != "" && 
+          postForm.descripcionCorta != "" && 
+          postForm.content != "" && 
+          postForm.etiquetas != "") {
 
-      this.blogService.setNewPost(formData)
-        .subscribe(response => {
-          if (response) {
-            this.toastr.success("El post se ha registrado exitosamente", "Exito!");
-            this.route.navigate(["/admin/posts/list"]);
-          } else {
-            this.toastr.error("Hubo un error al tratar de registrar el post, intentalo nuevamente", "Error!");
-          }
-        });
+          let formData = new FormData();
+          
+          formData.append('id', localStorage.getItem("id"));
+          formData.append('serie', postForm.serie.toString());
+          formData.append('titulo', postForm.titulo);
+          formData.append('url', postForm.url);
+          formData.append('File', postForm.image, postForm.image.name);
+          formData.append('descripcionPortada', postForm.descripcionPortada);
+          formData.append('descripcionCorta', postForm.descripcionCorta);
+          formData.append('content', postForm.content);
+          formData.append('etiquetas', postForm.etiquetas);
 
-    } else {
-      this.toastr.warning("Es necesario llenar todos los campos", "Campos invalidos");
+          this.blogService.setNewPost(formData)
+            .subscribe(response => {
+              if (response) {
+                this.toastr.success("El post se ha registrado exitosamente", "Exito!");
+                this.route.navigate(["/admin/posts/list"]);
+              } else {
+                this.toastr.error("Hubo un error al tratar de registrar el post, intentalo nuevamente", "Error!");
+              }
+            }, error => {
+              console.log(error);
+              localStorage.clear();
+              this.route.navigate(["/"]);
+            });
+
+        } else {
+          this.toastr.warning("Es necesario llenar todos los campos", "Campos invalidos");
+        }
+
+    } catch (error) {
+      console.log(error);
     }
   }
 

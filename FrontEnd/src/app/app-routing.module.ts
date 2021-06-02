@@ -26,14 +26,14 @@ import { UpdateSerieComponent } from './components/admin/series/update-serie/upd
 
 
 export const routes: Routes = [
-  { path: '', component: MainComponent },
-  { path: 'blog', component: BlogComponent },
-  { path: 'cursos', component: CursosComponent },
-  { path: 'gameplay', component: GameplayComponent },
-  { path: 'contactame', component: ContactoComponent },
-  { path: 'search', component: BuscadorComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'post/:id/:url', component: PostComponent },
+  //{ path: '', component: MainComponent },
+  //{ path: 'blog', component: BlogComponent },
+  //{ path: 'cursos', component: CursosComponent },
+  //{ path: 'gameplay', component: GameplayComponent },
+  //{ path: 'contactame', component: ContactoComponent },
+  //{ path: 'search', component: BuscadorComponent },
+  { path: '', component: LoginComponent },
+  //{ path: 'post/:id/:url', component: PostComponent },
   // Admin
   { path: 'admin/posts/list', component: ListPostComponent },
   { path: 'admin/posts/new', component: NewPostComponent },

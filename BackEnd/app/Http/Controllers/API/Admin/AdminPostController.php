@@ -26,7 +26,14 @@ class AdminPostController extends Controller
             ->paginate(10);
 
         return response()->json([
-            'posts' => $posts
+            'posts' => $posts,
+            'metas' => [
+                'title' => '',
+                'description' => '',
+                'url' => '',
+                'image' => '',
+                'keywords' => ''
+            ]
         ]);
     }
 

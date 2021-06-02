@@ -1,7 +1,16 @@
 export class NuevaSerieModel {
-    categoria: number = 0;
-    titulo: string = "";
+    
+    categoria: number;
+    titulo: string;
     image: any;
-    descripcion: string = "";
-    etiquetas: string = "";
+    descripcion: string;
+    etiquetas: string;
+
+    constructor(categoria: number, titulo: string, image: any, descripcion: string, etiquetas: string) {
+        this.categoria = categoria;
+        this.titulo = titulo;
+        this.image = image;
+        this.descripcion = descripcion;
+        this.etiquetas = etiquetas;
+    }
 }

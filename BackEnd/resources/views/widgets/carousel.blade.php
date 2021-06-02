@@ -16,7 +16,7 @@
                 <div class="carousel-item" data-bs-interval="2000">
             @endif
                 <a href="/post/{{ $new->id }}/{{ $new->url }}">
-                    <img src="images/posts/{{ $new->id }}.jpg" class="d-block w-100" alt="{{ $new->titulo }}">
+                    <img src="https://api.jordysantamaria.com/images/posts/{{ $new->id }}.jpg" class="d-block w-100" alt="{{ $new->titulo }}">
                     <div class="carousel-caption d-none d-md-block">
                         <h2 class="title fExtraBold">{{ $new->titulo }}</h2>
                         <p class="description fBold">{{ $new->breve_descripcion }}</p>

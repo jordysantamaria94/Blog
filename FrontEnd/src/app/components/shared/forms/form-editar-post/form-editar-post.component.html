@@ -1,0 +1,68 @@
+<form (ngSubmit)="submit(sendForm)" #sendForm="ngForm">
+            
+    <div class="row mb-4">
+        
+        <div class="col-6">
+            <label class="form-label">Categoria</label>
+            <select class="form-select" name="categoria" [(ngModel)]="postForm.categoria">
+                <option value="" selected>Seleccionar categoria...</option>
+                <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.categoria }}</option>
+            </select>
+        </div>
+
+        <div class="col-6">
+            <label class="form-label">Serie</label>
+            <select class="form-select" name="serie" [(ngModel)]="postForm.serie">
+                <option value="" selected>Seleccionar serie...</option>
+                <option *ngFor="let serie of series | filterSerie: sendForm.value.categoria" [value]="serie.id">{{ serie.subcategoria }}</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="mb-3">
+        <label for="tituloInput" class="form-label">Titulo</label>
+        <input type="text" class="form-control" id="tituloInput" placeholder="Titulo del post" maxlength="255" name="titulo" aria-describedby="tituloInputHelp" [(ngModel)]="postForm.titulo">
+        <div id="tituloInputHelp" class="form-text">{{ sendForm.value.titulo?.length }} caracteres de 255</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="urlInput" class="form-label">Url</label>
+        <input type="text" class="form-control" id="urlInput" placeholder="Titulo del post" maxlength="255" name="url" aria-describedby="urlInputHelp" [(ngModel)]="postForm.url">
+        <div id="urlInputHelp" class="form-text">{{ sendForm.value.url?.length }} caracteres de 255</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="portadaFile" class="form-label">Portada</label>
+        <input class="form-control" type="file" name="file" id="portadaFile" (change)="showPreview($event)">
+    </div>
+
+    <img [src]="imageUrl" alt="Portada del post" class="img-fluid w-100 mb-3">
+
+    <div class="mb-3">
+        <label for="descripcionPortadaInput" class="form-label">Descripción portada</label>
+        <textarea id="descripcionPortadaInput" class="form-control" rows="3" name="descripcionPortada" maxlength="255" placeholder="Descripción de portada..." aria-describedby="descripcionPortadaInputHelp" [(ngModel)]="postForm.descripcionPortada"></textarea>
+        <div id="descripcionPortadaInputHelp" class="form-text">{{ sendForm.value.descripcionPortada?.length }} caracteres de 255</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="descripcionCortaInput" class="form-label">Descripción corta</label>
+        <textarea id="descripcionCortaInput" class="form-control" rows="3" name="descripcionCorta" maxlength="255" placeholder="Descripción corta..." aria-describedby="descripcionCortaInputHelp" [(ngModel)]="postForm.descripcionCorta"></textarea>
+        <div id="descripcionCortaInputHelp" class="form-text">{{ sendForm.value.descripcionCorta?.length }} caracteres de 255</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="editorInput" class="form-label">Descripción</label>
+        <ckeditor id="editorInput" [config]="{ allowedContent: true }" name="content" aria-describedby="descripcionInputHelp" [(ngModel)]="postForm.content"></ckeditor>
+        <div id="descripcionInputHelp" class="form-text">{{ sendForm.value.content?.length }} caracteres</div>
+    </div>
+
+    <div class="mb-4">
+        <label for="etiquetasInput" class="form-label">Etiquetas</label>
+        <input type="text" class="form-control" id="etiquetasInput" placeholder="Etiquetas del post..." maxlength="255" name="etiquetas" aria-describedby="etiquetasInputHelp" [(ngModel)]="postForm.etiquetas">
+        <div id="etiquetasInputHelp" class="form-text">{{ sendForm.value.etiquetas?.length }} caracteres de 255</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary fBold">Publicar</button>
+
+</form>

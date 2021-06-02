@@ -5,18 +5,18 @@
     <div class="bg-white w-full rounded-2xl col-start-1 col-span-6 md:col-start-2 md:col-span-4 lg:col-start-2 lg:col-span-3 p-10">
         <h1 class="font-black text-2xl text-center  md:text-5xl">{{ $detail->titulo }}</h1>
         <div class="mt-8">
-            <img src="/images/posts/{{ $detail->id }}.jpg" class="w-full md:rounded-lg text-center" alt="{{ $detail->titulo }}">
+            <img src="https://api.jordysantamaria.com/images/posts/{{ $detail->id }}.jpg" class="w-full md:rounded-lg text-center" alt="{{ $detail->titulo }}">
             <p class="mt-4 text-xs">Escrita el: {{ date('D, d-M-Y', strtotime($detail->created_at)) }}</p>
         </div>
         <div class="font-light text-xl mt-8">
-            {!! json_decode($detail->descripcion) !!}
+            {!! $detail->descripcion !!}
         </div>
     </div>
     <div class="flex hidden col-start-5 col-span-1 md:col-start-5 md:col-span-1 lg:block">
         <div class="bg-white w-full rounded-2xl space-x-1 p-4">
             <h2 class="font-black text-xl mb-3">Temas</h2>
             @foreach(json_decode($detail->etiquetas) as $item)
-                <div class="bg-blue-700 rounded-full p-1 m-1 inline-block">
+                <div class="bg-gray-800 rounded-full p-1 m-1 inline-block">
                     <span class="font-black text-xs text-white">{{ $item }}</span>
                 </div>
             @endforeach
@@ -24,11 +24,11 @@
         <div class="bg-white w-full rounded-2xl mt-4 p-4">
             <h2 class="font-black text-xl my-3">Te recomiendo...</h2>
             @foreach($recommendationsCategory as $item)
-                <div class="flex hidden grid grid-cols-2 bg-gray-50 rounded mt-4 lg:block">
+                <div class="flex hidden grid grid-cols-2 bg-gray-100 rounded mt-4 lg:block">
                     <a href="/post/{{ $item->id }}/{{ $item->url }}">
-                        <img src="/images/posts/{{ $item->id }}.jpg" alt="{{ $item->titulo }}" class="w-full rounded-t-lg" />
+                        <img src="https://api.jordysantamaria.com/images/posts/{{ $item->id }}.jpg" alt="{{ $item->titulo }}" class="w-full rounded-t-lg" />
                         <div class="p-5">
-                            <h2 class="flex-auto text-xl font-semibold mb-2">
+                            <h2 class="flex-auto text-xl font-bold mb-2">
                                 {{ \Illuminate\Support\Str::limit($item->titulo, 25, $end='...') }}
                             </h2>
                             <p class="text-sm text-gray-500">

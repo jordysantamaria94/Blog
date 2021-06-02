@@ -1,9 +1,9 @@
-<form (ngSubmit)="submit()">
+<form (ngSubmit)="submit(sendForm)" #sendForm="ngForm">
 
     <div class="mb-3">
         <label for="tituloInput" class="form-label">Titulo</label>
-        <input type="text" class="form-control" id="tituloInput" placeholder="Titulo de la categoria" maxlength="255" [(ngModel)]="nuevaCategoriaModel.titulo" name="titulo" aria-describedby="tituloInputHelp">
-        <div id="tituloInputHelp" class="form-text">{{ nuevaCategoriaModel.titulo.length }} caracteres de 255</div>
+        <input type="text" class="form-control" id="tituloInput" placeholder="Titulo de la categoria" maxlength="255" name="titulo" aria-describedby="tituloInputHelp" ngModel>
+        <div id="tituloInputHelp" class="form-text">{{ sendForm.value.titulo?.length }} caracteres de 255</div>
     </div>
 
     <div class="mb-3">
@@ -15,14 +15,14 @@
 
     <div class="mb-3">
         <label for="descripcionCortaInput" class="form-label">Descripción</label>
-        <textarea id="descripcionCortaInput" class="form-control" rows="3" [(ngModel)]="nuevaCategoriaModel.descripcion" name="descripcion" maxlength="255" placeholder="Descripción..." aria-describedby="descripcionCortaInputHelp"></textarea>
-        <div id="descripcionCortaInputHelp" class="form-text">{{ nuevaCategoriaModel.descripcion.length }} caracteres de 255</div>
+        <textarea id="descripcionCortaInput" class="form-control" rows="3" name="descripcion" maxlength="255" placeholder="Descripción..." aria-describedby="descripcionCortaInputHelp" ngModel></textarea>
+        <div id="descripcionCortaInputHelp" class="form-text">{{ sendForm.value.descripcion?.length }} caracteres de 255</div>
     </div>
 
     <div class="mb-4">
         <label for="etiquetasInput" class="form-label">Etiquetas</label>
-        <input type="text" class="form-control" id="etiquetasInput" placeholder="Etiquetas de la categoria..." maxlength="255" [(ngModel)]="nuevaCategoriaModel.etiquetas" name="etiquetas" aria-describedby="etiquetasInputHelp">
-        <div id="etiquetasInputHelp" class="form-text">{{ nuevaCategoriaModel.etiquetas.length }} caracteres de 255</div>
+        <input type="text" class="form-control" id="etiquetasInput" placeholder="Etiquetas de la categoria..." maxlength="255" name="etiquetas" aria-describedby="etiquetasInputHelp" ngModel>
+        <div id="etiquetasInputHelp" class="form-text">{{ sendForm.value.etiquetas?.length }} caracteres de 255</div>
     </div>
 
     <button type="submit" class="btn btn-primary fBold">Publicar</button>

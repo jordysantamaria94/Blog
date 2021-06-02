@@ -1,0 +1,30 @@
+<form (ngSubmit)="submit(sendForm)" #sendForm="ngForm">
+
+    <div class="mb-3">
+        <label for="tituloInput" class="form-label">Titulo</label>
+        <input type="text" class="form-control" id="tituloInput" placeholder="Titulo de la categoria" maxlength="255" name="titulo" aria-describedby="tituloInputHelp" [(ngModel)]="categoriaForm.titulo">
+        <div id="tituloInputHelp" class="form-text">{{ sendForm.value.titulo?.length }} caracteres de 255</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="portadaFile" class="form-label">Portada</label>
+        <input class="form-control" type="file" name="file" id="portadaFile" (change)="showPreview($event)">
+    </div>
+
+    <img [src]="imageUrl" alt="Portada del post" class="img-fluid w-100 mb-3">
+
+    <div class="mb-3">
+        <label for="descripcionCortaInput" class="form-label">Descripción</label>
+        <textarea id="descripcionCortaInput" class="form-control" rows="3" name="descripcion" maxlength="255" placeholder="Descripción..." aria-describedby="descripcionCortaInputHelp" [(ngModel)]="categoriaForm.descripcion"></textarea>
+        <div id="descripcionCortaInputHelp" class="form-text">{{ sendForm.value.descripcion?.length }} caracteres de 255</div>
+    </div>
+
+    <div class="mb-4">
+        <label for="etiquetasInput" class="form-label">Etiquetas</label>
+        <input type="text" class="form-control" id="etiquetasInput" placeholder="Etiquetas de la categoria..." maxlength="255" name="etiquetas" aria-describedby="etiquetasInputHelp" [(ngModel)]="categoriaForm.etiquetas">
+        <div id="etiquetasInputHelp" class="form-text">{{ sendForm.value.etiquetas?.length }} caracteres de 255</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary fBold">Publicar</button>
+
+</form>

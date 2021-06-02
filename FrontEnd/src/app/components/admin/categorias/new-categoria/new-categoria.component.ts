@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { NuevaCategoriaModel } from 'src/app/models/admin/categorias/nueva-categoria.model';
@@ -11,28 +12,33 @@ import { BlogService } from 'src/app/services/blog.service';
 })
 export class NewCategoriaComponent implements OnInit {
 
-  nuevaCategoriaModel: NuevaCategoriaModel;
+  image: string;
 
-  constructor(private blogService: BlogService, private toastr: ToastrService, private route: Router) { 
-    this.nuevaCategoriaModel = new NuevaCategoriaModel();
-  }
+  constructor(private blogService: BlogService, private toastr: ToastrService, private route: Router) {}
 
   ngOnInit(): void {
   }
 
-  registrar = () => {
-    if (this.nuevaCategoriaModel.titulo != "" && 
-      this.nuevaCategoriaModel.image && 
-      this.nuevaCategoriaModel.descripcion != "" && 
-      this.nuevaCategoriaModel.etiquetas != "") {
+  updateImage = (image: string): void => {
+    this.image = image;
+  }
+
+  registrar = (sendForm: NgForm): void => {
+
+    const postForm = new NuevaCategoriaModel(sendForm.value.titulo, this.image, sendForm.value.descripcion, sendForm.value.etiquetas);
+
+    if (postForm.titulo != "" && 
+      postForm.image && 
+      postForm.descripcion != "" && 
+      postForm.etiquetas != "") {
 
       let formData = new FormData();
       
       formData.append('id', localStorage.getItem("id"));
-      formData.append('titulo', this.nuevaCategoriaModel.titulo);
-      formData.append('File', this.nuevaCategoriaModel.image, this.nuevaCategoriaModel.image.name);
-      formData.append('descripcion', this.nuevaCategoriaModel.descripcion);
-      formData.append('etiquetas', this.nuevaCategoriaModel.etiquetas);
+      formData.append('titulo', postForm.titulo);
+      formData.append('File', postForm.image, postForm.image.name);
+      formData.append('descripcion', postForm.descripcion);
+      formData.append('etiquetas', postForm.etiquetas);
 
       this.blogService.setNewCategoria(formData)
         .subscribe(response => {
@@ -42,6 +48,10 @@ export class NewCategoriaComponent implements OnInit {
           } else {
             this.toastr.error("Hubo un error al tratar de registrar la categoria, intentalo nuevamente", "Error!");
           }
+        }, error => {
+          console.log(error);
+          localStorage.clear();
+          this.route.navigate(["/"]);
         });
 
     } else {

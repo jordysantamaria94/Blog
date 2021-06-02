@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from 'src/app/services/blog.service';
 import * as moment from 'moment';
+import { SeriesTable } from 'src/app/models/admin/series/list-series.model';
 
 @Component({
   selector: 'app-list-serie',
@@ -9,10 +10,10 @@ import * as moment from 'moment';
 })
 export class ListSerieComponent implements OnInit {
 
-  series: any = [];
+  series: SeriesTable[] = [];
 
-  current: number = 1;
-  links: any = [];
+  currentPagination: number = 1;
+  linksPagination: any = [];
 
   constructor(private blogService: BlogService) { }
 
@@ -21,16 +22,16 @@ export class ListSerieComponent implements OnInit {
   }
 
   async getAllSeries() {
-    await this.blogService.getAllSeries(this.current)
+    await this.blogService.getAllSeries(this.currentPagination)
       .subscribe(series => {
         this.series = series['data'];
-        this.current = series['current_page'];
-        this.links = series['links'];
+        this.currentPagination = series['current_page'];
+        this.linksPagination = series['links'];
       });
   }
 
   paginate = (page: number) => {
-    this.current = page;
+    this.currentPagination = page;
     this.getAllSeries();
   }
 

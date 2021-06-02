@@ -17,7 +17,14 @@ class MainController extends Controller
             'cursos' => $this->getPostsCategoria('Cursos'),
             'gameplays' => $this->getPostsCategoria('Gameplays'),
             'vlogs' => $this->getPostsCategoria('Blog'),
-            'subcategorias' => $this->getSubcategorias()
+            'subcategorias' => $this->getSubcategorias(),
+            'metas' => [
+                'title' => '',
+                'description' => '',
+                'url' => '',
+                'image' => '',
+                'keywords' => ''
+            ]
         ], 201);
     }
 

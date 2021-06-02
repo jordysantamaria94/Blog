@@ -43,6 +43,9 @@ import { FormNuevoPostComponent } from './components/shared/forms/form-nuevo-pos
 import { PaginationComponent } from './components/shared/widgets/pagination/pagination.component';
 import { FormNuevaCategoriaComponent } from './components/shared/forms/form-nueva-categoria/form-nueva-categoria.component';
 import { FormNuevaSerieComponent } from './components/shared/forms/form-nueva-serie/form-nueva-serie.component';
+import { FormEditarPostComponent } from './components/shared/forms/form-editar-post/form-editar-post.component';
+import { FormEditarCategoriaComponent } from './components/shared/forms/form-editar-categoria/form-editar-categoria.component';
+import { FormEditarSerieComponent } from './components/shared/forms/form-editar-serie/form-editar-serie.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +81,10 @@ import { FormNuevaSerieComponent } from './components/shared/forms/form-nueva-se
     FormNuevoPostComponent,
     PaginationComponent,
     FormNuevaCategoriaComponent,
-    FormNuevaSerieComponent
+    FormNuevaSerieComponent,
+    FormEditarPostComponent,
+    FormEditarCategoriaComponent,
+    FormEditarSerieComponent
   ],
   imports: [
     CKEditorModule,

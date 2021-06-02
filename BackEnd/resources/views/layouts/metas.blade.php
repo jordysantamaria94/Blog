@@ -1,3 +1,4 @@
+@if($metas)
 <title>{{ $metas['title'] }}</title>
 <meta name="title" content="{{ $metas['title'] }}">
 <meta name="description" content="{{ $metas['description'] }}">
@@ -21,3 +22,4 @@
 <meta name="twitter:title" content="{{ $metas['title'] }}">
 <meta name="twitter:description" content="{{ $metas['description'] }}">
 <meta name="twitter:image" content="{{ $metas['image'] }}">
+@endif
