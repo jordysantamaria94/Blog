@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap');
+
+html {
+    height: 100% !important;
+}
+
+body {
+    background-color: #f5f5f7 !important;
+    font-weight: 400 !important;
+    font-family: 'Rubik', sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.rubikFontLight {
+    font-weight: 300 !important;
+    font-family: 'Rubik', sans-serif !important;
+}
+
+.rubikFontMedium {
+    font-weight: 500 !important;
+    font-family: 'Rubik', sans-serif !important;
+}
+
+.rubikFontSemibold {
+    font-weight: 600 !important;
+    font-family: 'Rubik', sans-serif !important;
+}
+
+.rubikFontBold {
+    font-weight: 700 !important;
+    font-family: 'Rubik', sans-serif !important;
+}
+
+.rubikFontExtrabold {
+    font-weight: 800 !important;
+    font-family: 'Rubik', sans-serif !important;
+}
+
+.rubikFontBlack {
+    font-weight: 900 !important;
+    font-family: 'Rubik', sans-serif !important;
+}
+
+a {
+    color: #000 !important;
+}
