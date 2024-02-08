@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'courses' => 'Courses',
+    'courses' => 'Programming',
     'gameplay' => 'Gameplay',
     'vlogs' => 'Vlogs',
     'about_me' => 'About me',

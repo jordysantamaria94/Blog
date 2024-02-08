@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'courses' => 'Cursos',
-    'gameplay' => 'Gameplay',
+    'courses' => 'Programación',
+    'gameplay' => 'Gameplays',
     'vlogs' => 'Vlogs',
     'about_me' => 'Sobre mí',
     'search' => 'Buscar...',

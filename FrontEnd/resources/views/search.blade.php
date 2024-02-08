@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <h2 class="mb-3">
                 Resultados de: 
-                <span class="rubikFontBold">
+                <span class="rubikFontSemibold">
                     {{ $search }}
                 </span>
             </h2>

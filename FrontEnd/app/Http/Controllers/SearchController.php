@@ -17,14 +17,14 @@ class SearchController extends Controller
             'metas' => [
                 'title' => $search.' - Jordy Santamaria',
                 'description' => 'Resultados de: '.$search,
-                'url' => 'https://www.jordysantamaria.com/busqueda?search='.$search,
-                'image' => 'https://www.jordysantamaria.com/images/logo/wallpaper.jpg',
+                'url' => urlBase().'busqueda?search='.$search,
+                'image' => urlAPI().'images/logo/wallpaper.jpg',
                 'keywords' => 'blog, gameplay, vlog, cursos, tutoriales, courses, videojuegos'
             ]
         ]);
     }
 
-    public function searchPosts($search) {
+    private function searchPosts($search) {
         return DB::table('post')
             ->leftJoin('subcategoria', 'subcategoria.id', '=', 'post.id_subcategoria')
             ->leftJoin('categoria', 'categoria.id', '=', 'subcategoria.id_categoria')

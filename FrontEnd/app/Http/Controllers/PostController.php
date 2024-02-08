@@ -15,19 +15,18 @@ class PostController extends Controller
 
         return view('post', [
             'detail' => $detail,
-            'recommendations' => $this->getRecomendaciones($id, $detail->id_subcategoria, 3),
-            'recommendationsCategory' => $this->getRecomendacionesCategoria($id, $detail->id_subcategoria, 3),
+            'recommendationsCategory' => $this->getRecomendaciones($id, $detail->id_subcategoria, 2),
             'metas' => [
                 'title' => $detail->titulo.' - Jordy Santamaria',
                 'description' => $detail->breve_descripcion,
-                'url' => 'https://www.jordysantamaria.com/post/'.$detail->id.'/'.$detail->url,
-                'image' => 'https://api.jordysantamaria.com/images/posts/'.$detail->id.'.jpg',
+                'url' => urlBase().'post/'.$detail->id.'/'.$detail->url,
+                'image' => urlAPI().'images/posts/'.$detail->id.'.jpg',
                 'keywords' => implode(", ", json_decode($detail->etiquetas))
             ]
         ]);
     }
 
-    public function getPostDetail($id)
+    private function getPostDetail($id)
     {
         return DB::table('post')
             ->leftJoin('subcategoria', 'subcategoria.id', '=', 'post.id_subcategoria')
@@ -37,7 +36,7 @@ class PostController extends Controller
             ->first();
     }
 
-    public function getRecomendaciones($id, $id_subcategoria, $limit)
+    private function getRecomendaciones($id, $id_subcategoria, $limit)
     {
         return DB::table('post')
             ->leftJoin('subcategoria', 'subcategoria.id', '=', 'post.id_subcategoria')
@@ -49,7 +48,7 @@ class PostController extends Controller
             ->get();
     }
 
-    public function getRecomendacionesCategoria($id, $id_subcategoria, $limit)
+    private function getRecomendacionesCategoria($id, $id_subcategoria, $limit)
     {
         return DB::table('post')
             ->leftJoin('subcategoria', 'subcategoria.id', '=', 'post.id_subcategoria')

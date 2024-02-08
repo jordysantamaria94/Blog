@@ -21,8 +21,8 @@ class SerieController extends Controller
             'metas' => [
                 'title' => $subcategoria->subcategoria.' - Jordy Santamaria',
                 'description' => $subcategoria->descripcion,
-                'url' => 'https://www.jordysantamaria.com/serie/'.$subcategoria->subcategoria.'/'.$subcategoria->id,
-                'image' => 'https://www.jordysantamaria.com/images/subcategorias/'.$subcategoria->id.'.jpg',
+                'url' => urlBase().'serie/'.$subcategoria->subcategoria.'/'.$subcategoria->id,
+                'image' => urlAPI().'images/subcategorias/'.$subcategoria->id.'.jpg',
                 'keywords' => implode(", ", json_decode($subcategoria->etiquetas))
             ]
         ]);

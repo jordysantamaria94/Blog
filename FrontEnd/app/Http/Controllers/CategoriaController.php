@@ -22,8 +22,8 @@ class CategoriaController extends Controller
             'metas' => [
                 'title' => $categoria->categoria.' - Jordy Santamaria',
                 'description' => $categoria->descripcion,
-                'url' => 'https://www.jordysantamaria.com/categoria/'.$name,
-                'image' => 'https://www.jordysantamaria.com/images/categorias/'.$categoria->id.'.jpg',
+                'url' => urlBase().'categoria/'.$name,
+                'image' => urlAPI().'images/categorias/'.$categoria->id.'.jpg',
                 'keywords' => implode(", ", json_decode($categoria->etiquetas))
             ]
         ]);

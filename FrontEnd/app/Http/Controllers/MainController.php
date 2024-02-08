@@ -23,8 +23,8 @@ class MainController extends Controller
             'metas' => [
                 'title' => 'Jordy Santamaria',
                 'description' => 'Bienvenido a mi sitio personal, aqui encontraras cursos / tutoriales, gameplays que hago para mis canales de YouTube y pequeños posts acerca de mi vida personal',
-                'url' => 'https://www.jordysantamaria.com/',
-                'image' => 'https://www.jordysantamaria.com/images/logo/wallpaper.jpg',
+                'url' => urlBase(),
+                'image' => urlAPI().'images/logo/wallpaper.jpg',
                 'keywords' => 'blog, gameplay, vlog, cursos, tutoriales, courses, videojuegos'
             ]
         ]);
@@ -50,7 +50,7 @@ class MainController extends Controller
                     ->select('post.id', 'post.titulo', 'post.url', 'post.breve_descripcion', 'categoria.categoria', 'subcategoria.subcategoria', 'post.created_at')
                     ->where('categoria.categoria', '=', $categoria)
                     ->orderByDesc('post.id')
-                    ->limit(4)
+                    ->limit(2)
                     ->get();
 
         return $posts;
